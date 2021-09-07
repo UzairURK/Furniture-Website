@@ -1,0 +1,992 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+html {
+  font-size: 62.5%;
+}
+body {
+  box-sizing: border-box;
+  font-family: 'Alegreya' serif;
+}
+
+/*We are going to set margin and padding to zero by defalut, so we use asteric to select all elements (*)*/
+* {
+  margin: 0;
+  padding: 0;
+}
+/*navigation bar*/
+.container {
+  /*fllowing are 10 columns and 3 rows*/
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) repeat(8, minmax(min-content, 16rem))  minmax(16rem, 1fr); /*first and last column are set as they have 'minmax(6rem, 1fr)' value and middle 8 columns have 'repeat(8, minmax(min-content, 16rem))' value. */
+  grid-template-rows: repeat(3,min-content) 70vh repeat(5, min-content); /*we have total 5 rows in three part 1st part contains 3 rows and rest of all conntains 1 row*/
+  grid-row-gap: 1.6rem;
+  margin-top: 1.6rem;
+}
+
+.social-icons{ /*place social icons in column 2*/
+  grid-column: 2 / 4; /*start from 2 & end to 4*/
+  grid-row: 1 / 2;
+  list-style: none;
+  display: grid; /*display each item in a grid*/
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr)); /*each column has same width due to 'auto-fit'*/
+  align-items: center;
+}
+.social-icon{
+  font-size: 1.8rem;
+  color: #12376e;
+  transition: all .2s;
+
+}
+.social-icon:hover {
+  color: #34598f;
+  transform: rotateZ( 360deg );
+}
+.first-nav { /*place social icons in column 6*/
+  grid-column: 6 / 10; /*start from 6 & end to 10*/
+  grid-row: 1 / 2;
+}
+.first-nav-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+
+}
+.first-nav-link {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #12376e;
+  display: inline-block; /*b/c they are inline level element and we want to transfrom into block-level element, so in this way width works fine. */
+  width: 100%;
+  text-align: center;
+}
+/*creating underline*/
+.first-nav-link::after {
+  content: "";
+  width: 0; /*want it to be hidden*/
+  height: .1rem;
+  background-color: #12376e;
+  display: block; /*b/c they are inline level element and we want to transfrom into block-level element, so in this way width works fine.' = 'block'*/
+  transition-property: all;
+  transition-duration: .2s;
+  /* transition-timing-function: cubic-bezier(.55, 0, .98, .54); */
+  margin: auto;
+
+}
+.first-nav-link:hover::after { /*we want it to be visible on hover*/
+  width: 100%;
+  
+}
+.first-nav-link span {
+  font-size: 1.3rem;
+  color: #34598f;
+}
+.first-nav-link i {
+  font-size: 1.3rem;
+  color: .3rem;
+}
+/*search*/
+.search {
+  /*place in 2nd row and 8 to 9 column*/
+  grid-column: 8 / 10;
+  grid-row: 2 / 3;      
+}
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+}
+.search-input { /*according to 'search-form as it is 'display: grid;' search-input is chid it`s child too.'*/
+  grid-column: 3 / 11; /* grid-column: 3 / 11 = grid-column: 3 / -1, place from 3 line to 11 line */
+  grid-row: 1 / 2;
+  padding: .3rem .4rem;
+  font-size: 1.3rem;
+  border: none;
+  border-bottom: .2rem solid #12376e;
+  outline: none;
+}
+.search-btn { /*according to 'search-form as it is 'display: grid;' search-input is chid it`s child too.'*/
+  grid-column: 10 / 11;  /* grid-column: 10 / 11 = grid-column: 1 / -1, place from 10 line to 11 line */
+  grid-row: 1 / 2;
+  border: none; /*get rid of default border*/
+  background-color: transparent;
+
+
+}
+
+/*end of search*/
+/*2nd nav*/
+.second-nav {
+  grid-column: 2 / 10;
+  grid-row: 3 / 4;
+  border-top: .1rem solid #12376e;
+  border-bottom: .1rem solid #12376e;
+}
+.second-nav-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+}
+.second-nav-link {
+  text-align: center;
+  display: grid; /*it is used for creating border for each link connected to '.second-nav-link::before, .second-nav-link::after'*/
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: #12376e;
+  padding: .8rem 0;
+  transition-property: all;
+  transition-duration: .2s;
+  transition-delay: .3s;
+}
+.second-nav-item:hover .second-nav-link { 
+  background-color: #12376e;
+  color: #fff;
+}
+.second-nav-link::before, .second-nav-link::after {
+  /*For creating border for each link*/
+  content: "";
+  width: 0;
+  height: .1rem;
+  background-color: #12376e;
+  display: block; /*may be used for displaying border*/
+  transition: width;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.55, 0, .98, .54);
+  transition: width .2s cubic-bezier(.55, 0, .98, .54),background-color .5s .3s; /*background-color will be visible in .5 second with delay of .3 second*/
+
+}
+.second-nav-link::after {
+  justify-self: end; /*b/c it is child element of 'grid' defined in '.second-nav-link'*/
+}
+
+
+.second-nav-item:hover  .second-nav-link::before, .second-nav-item:hover  .second-nav-link::after {
+  width: 100%;
+  background-color: #fff;
+}
+
+.second-nav-item {
+  position: relative;
+}
+.dropdown {
+  position: absolute;
+  top: 100%;
+  width: 70rem;
+  background-color: #fffeee;
+  padding: 1.6rem;
+  display: grid; 
+  grid-template-columns: repeat(7, 10rem);
+  visibility: hidden; /*to hide dropdown menu*/
+  opacity: none;
+  transition-property:all;
+  transition-duration: 1s;
+  z-index: 100; 
+  
+}
+.second-nav-item:first-child:hover .dropdown { /*when hover on 'furniture' then dropdown become visible*/
+  visibility: visible;
+  opacity: 1;
+}
+.dropdown-first-list { /*place from line 1 to line 3*/
+  grid-column: 1 / 3;
+  
+}
+.dropdown-second-list { /*place from line 3 to line 5*/
+  grid-column: 3 / 5;
+}
+.dropdown-image { /*place from line 5 to last line -1 */
+  grid-column: 5 / -1;
+  width: 100%;
+}
+.dropdown-list-item {
+  list-style: none;
+}
+.dropdown-list-link {
+  font-size: 1.3rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #34598f;
+  display: block; /*b/c to apply margin and padding*/
+  margin: 0 0 1rem 1.6rem;
+}
+.dropdown-list-link:hover {
+  color: #458a9f;
+}
+/* end of 2nd nav*/
+/*end of navigation bar*/
+/*banner*/
+.banner {
+  
+  grid-column: 2 / 10;
+  grid-row: 4 / 5;
+  position: relative; /*to align 'banner-content' on center relative to 'banner'*/
+}
+.banner-content {
+  /*to align center*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center; /*espacially for button*/
+  /* end to align center */
+  text-transform: uppercase;
+  z-index: 50;
+}
+.banner-heading {
+  font-size: 10rem;
+  color: #12376e;
+  margin-bottom: 6rem;
+}
+.banner-btn {
+  width: 16rem;
+  height: 5rem;
+  background: linear-gradient(to top, #00154c, #12376e, #23487f);
+  color: #fff;
+  border: .1rem solid #fff;
+  border-radius: .3rem;
+  outline: none;
+  position: relative; /*for alignment of '.banner-btn-text-one' & '.banner-btn-text-two' */
+  overflow: hidden; /*hide text which is not inside button */
+  cursor: pointer;
+}
+.banner-btn-text-one {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%; /*It works due to 'position: absolute'*/
+  transition: top .2s;
+  
+}
+.banner-btn-text-two {
+  position: absolute;
+  position: absolute;
+  top: 150%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%; /*It works due to 'position: absolute'*/
+  transition: top .2s;
+}
+/*Comment#1: on hover, we want first text to go up and second text to go on center of button*/
+.banner-btn:hover .banner-btn-text-one {
+  top: -50%;
+}
+.banner-btn:hover .banner-btn-text-two {
+  top: 50%;
+}
+.slideshow {
+  height: 100%;
+  overflow: hidden; /*for hidding unnecessary */
+}
+.slideshow-wrapper {
+  display: flex; /*set to show slide effect*/
+  width: 400%; /*b/c we have 4 images*/
+  height: 100%;
+  position: relative;
+  /* animation: slideshow 20s infinite; */
+  animation-name: slideshow;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+ 
+  
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  
+  object-fit: cover;
+}
+/*Comment#1: Animation for slideshow*/
+@keyframes slideshow {
+  0% {
+    left: 0; /*  img-1 is displayed*/
+  }
+  10% {
+    left: 0; /* keep displaying img-1*/
+  }
+  15% {
+    left: -100%; /*  img-2 is displayed*/
+  }
+  25% {
+    left: -100; /* keep displaying img-2*/
+  }
+  30% {
+    left: -200%; /*  img-3 is displayed*/
+  }
+  40% {
+    left: -200%; /* keep displaying img-3*/
+  }
+  45% {
+    left: -300%; /*  img-4 is displayed*/
+  }
+  55% {
+    left: -300%; /*  img-4 is displayed*/
+  }
+  60% {
+    left: -200%;
+  }
+  70% {
+    left: -200%;
+  }
+  75% {
+    left: -100%;
+  }
+  85% {
+    left: -100%;
+  }
+  90% { /*1st cycle of animation will be finished and 1st img will be displayed*/
+    left: 0;
+  }
+}
+
+/* end of Comment#1: */
+.slide-btn {
+  width: 1.3rem;
+  height: 1.3rem;
+  background-color: #fff;
+  border: .2rem solid #d38800;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: 95%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.slide-btn:focus {
+background-color: #00154c ;
+}
+.slide-btn-1 {
+  left: 47%;
+}
+.slide-btn-2 {
+  left: 49%;
+}
+.slide-btn-3 {
+  left: 51%;
+}
+.slide-btn-4 {
+  left: 53%;
+}
+.slide-btn-1:focus ~ .slideshow-wrapper {
+  animation: none;
+  left: 0;
+}
+.slide-btn-2:focus ~ .slideshow-wrapper {
+  animation: none;
+  left: -100%;
+}
+.slide-btn-3:focus ~ .slideshow-wrapper {
+  animation: none;
+  left: -200%;
+}
+.slide-btn-4:focus ~ .slideshow-wrapper {
+  animation: none;
+  left: -300%;
+}
+/*end of Comment#:*/
+
+/*day offer*/
+ .day-offer {
+   grid-column: 2 / 10;
+  grid-row: 5 / 6;
+   display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, min-content); 
+  grid-gap: 1.6rem 3.2rem;
+  justify-items: center;
+} 
+.day-offer-image-one {
+  grid-column: 1 / 3;
+  grid-row: 1 / -1;
+  width: 60rem;
+  object-fit: cover;
+  transform: translateY(40%);
+  
+  
+}
+.day-offer-heading {
+  grid-column: 3 / -1;
+  grid-row: 1 / 2;
+  font-size: 6rem;
+  color: #23487f;
+
+}
+.day-offer-paragraph {
+  grid-column: 3 / -1;
+  grid-row: 2 / 3;
+  font-size: 3rem;
+  color: #23487f;
+}
+.day-offer-btn {
+  grid-column: 3 / -1;
+  grid-row: 3 / 4;
+  width: 16rem;
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.3rem;
+  background: linear-gradient(to top, #00154c, #12376f, #23487f);
+  border: none;
+  border-radius: 5rem;
+  text-transform: uppercase;
+  box-shadow: .2rem .2rem 1rem #777;
+  outline: none;
+
+}
+.day-offer-btn:hover {
+  box-shadow: .2rem .2rem 2rem #777;
+  cursor: pointer;
+}
+.day-offer-image-two {
+  grid-column: 3 / -1;
+  grid-row: 4 / -1;
+  width: 60rem;
+  
+  /* align-self: end; */
+  
+}
+/* end of day-offer */
+
+ /* bestselling furniture */
+ .bestselling-furniture {
+   grid-column: 2 / 10;
+   grid-row: 6 / 7;
+
+ }
+ .bestselling-furniture-header {
+   font-size: 4.5rem;
+   color: #23487f;
+   text-align: center;
+   margin: 3rem 0;
+ }
+ .bestselling-furniture-cards {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+   grid-gap: 3rem;
+  box-shadow: 0 1.5rem 6rem rgba(0, 0, 0, .3);
+ }
+ .bestselling-furniture-card {
+   background-color: #efefef;
+ }
+ .bestselling-furniture-img {
+   width: 40rem;
+   height: 80%;
+   border-radius: .3rem .3rem 0 0;
+  object-fit: cover;
+ }
+ .bestselling-furniture-heading {
+   background-color: #fffddd;
+   width: 80%;
+   margin: auto;
+   text-align: center;
+   font-size: 2.4rem;
+   color: #458a9f;
+   padding: .5rem 0;
+   border-radius: .2rem;
+   transform: translateY(-50%);
+ }
+ .bestselling-furniture-paragraph {
+   font-size: 1.9rem;
+   color: #23487f;
+  margin-bottom: 1.6rem;
+  text-align: center;
+ }
+ .bestselling-furniture-btn {
+   width: 100%;
+   padding: 1.6rem 0;
+   background-color: #12376e;
+   font-size: 1.6rem;
+   color: #fff;
+   border: none;
+   border-radius: 0 0 .3rem .3rem;
+
+ }
+ .bestselling-furniture-btn:hover {
+   background-color: #23487f;;
+ }
+ /* end of bestselling furniture */
+/* gallery */
+.gallery {
+  grid-column: 1 / -1;
+  grid-row: 7 / 8;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(1rem, 1fr));
+  grid-template-rows: repeat(4, 10vw); /*vw = 10% of width*/
+  grid-gap: 1.6rem;
+  margin-top: 6.4rem;
+  background-color: #12376f;
+  padding: 1.6rem 0;
+}
+.gallery-img { /*for placing them in respective positions*/
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .5;
+  transition: opacity .5s;
+}
+.gallery-img:hover {
+    opacity: 1;
+}
+.gallery-img-1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+}
+.gallery-img-2 {
+  grid-column: 3 / 6;
+  grid-row: 1 / 3;
+}
+.gallery-img-3 {
+  grid-column: 6 / 7;
+  grid-row: 1 / 3;
+}
+.gallery-img-4 {
+  grid-column: 7 / 9;
+  grid-row: 1 / 3;
+}
+.gallery-img-5 {
+  grid-column: 1 / 3;
+  grid-row: 2 / 4;
+}
+.gallery-img-6 {
+  grid-column: 3 / 5;
+  grid-row: 3 / 5;
+}
+.gallery-img-7 {
+  grid-column: 6 / 7;
+  grid-row: 2 / 4;
+}
+.gallery-img-8 {
+  grid-column: 5 / 6;
+  grid-row: 3 / 5;
+}
+.gallery-img-9 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+}
+.gallery-img-10 {
+  grid-column: 1 / 3;
+  grid-row: 4 / 5;
+}
+.gallery-img-11 {
+  grid-column: 6 / 7;
+  grid-row: 4 / 5;
+}
+.gallery-img-12 {
+  grid-column: 7 / 9;
+  grid-row: 3 / 5;
+}
+/* end of gallery */
+
+/* contact */
+  .contact {
+    grid-column: 1 / -1;
+    grid-row: 8 / 9;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 3rem;
+    background-color: #12376e;
+    padding: 2rem 0;
+  }
+  .contact-heading {
+    justify-self: end;
+    font-size: 2rem;
+    color: #fff;
+  }
+  .contact-form {
+    display: flex;
+  }
+  .contact-form input {
+    outline: none;
+    padding: .4rem 1rem;
+    border: .1rem solid #fff;
+  }
+  .contact-input {
+    border-radius: 5rem 0 0 5rem;
+    border-right: none;
+  }
+  .contact-btn {
+    background-color: #34598f;
+    color: #fff;
+    border-radius: 0 5rem 5rem 0;
+    border-left: none;
+    transition: background-color .2s;
+
+  }
+  .contact-btn:hover {
+    background-color: #12376e;
+    cursor: pointer;
+  }
+  /* end of contact */
+  /* footer */
+  .footer {
+    grid-column: 2 / 10;
+    grid-row: 9 / 10;
+    text-align: center;
+    font-size: 1.6rem;
+    padding: 2rem 0 3rem 0;
+    color: #34598f;
+  }
+  /* end of footer */
+
+
+/* modal box */
+.forms-wrapper {
+  background-color: #eee;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 2rem;
+  border: .1rem solid #34598f;
+  border-radius: .3rem;
+  display: none;
+}
+.show-btns-wrapper {
+  display: flex;
+  padding: 1rem;
+
+}
+.show-form-btn {
+  flex: 0 1 50%; /*all flex property*/
+  background-color: #12376e;
+  font-size: 1.5rem;
+  color: #fff;
+  padding: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  text-align: center;
+  border: .1rem solid #fff;
+  cursor: pointer;
+}
+.form-heading {
+  font-size: 2rem;
+  color: #12376e;
+  text-transform: uppercase;
+  padding: 1rem 0 0 .2rem;
+
+}
+.forms-wrapper form {
+  width: 50rem;
+  padding: 1rem;
+
+}
+.forms-wrapper form input:not(.form-btn) { /*':not(.form-btn)' this pseudo class is used to exclude an element or class to which properties are not applied*/
+  background-color: #fff;
+  color: #777;
+  padding: 1.3rem;
+  margin: .3rem 0;
+  border: .2rem solid #eee;
+  box-sizing: border-box;
+  outline: none;
+
+}
+.full-name-inputs-wrapper {
+  display: flex; /*to put them side by side*/
+}
+.full-name-inputs-wrapper input {
+  width: 50%;
+}
+.form-input {
+  width: 100%;
+}
+.form-btn {
+  width: 35%;
+  background-color: #d38800;
+  color: #fff;
+  letter-spacing: .3rem;
+  padding: 1rem;
+  border: none;
+  margin-top: .5rem;
+
+}
+.x-btn {
+  font-size: 2rem;
+  color: #00154c;
+  font-weight: bolder;
+  position: absolute;
+  /* top: 95%;
+  left: 95%;  */
+
+   
+  bottom: 3.3rem;
+  right:3.5rem; 
+  cursor: pointer;
+}
+.login-form {
+  display: none;
+}
+.show-signup-form {
+  color: #888;
+  background-color: #34598f;
+  pointer-events: none;
+}
+#show-form:checked ~ .show-btns-wrapper .show-login-form { /*It means, when we click on login-btn then checkbox sholud only be checked and login-btn is disabled and signup-btn is enabled*/
+  color: #888;
+  background-color: #34598f;
+  pointer-events: none;
+}
+#show-form:checked ~ .show-btns-wrapper .show-signup-form { /*It means, when we click on sign -up btn then checkbox sholud  be unchecked and login-btn is enabled and signup-btn is disabled */
+  color: #fff;
+  background-color: #12376e;
+  pointer-events: initial;
+
+}
+#show-form:checked ~ .signup-form {
+  display: none; /*when signup-form is hidden then login-form is visible */
+}
+#show-form:checked ~ .login-form {
+  display: block; /*when signup-form is hidden then login-form is visible*/
+}
+#show-hide-forms:checked ~ .forms-wrapper {
+  display: block; /*to show form b/c it was already hidden*/
+  animation: anim .5s;
+}
+#show-hide-forms:checked ~ .container { /*when we click on 'signup/login' then entire page will be displayed*/
+  pointer-events: none;
+  opacity: .6
+}
+.first-nav-link label {
+  cursor: pointer;
+}
+/*animation creation*/
+
+@keyframes anim {
+  0% {
+    left: 40%;
+  }
+  50% {
+    left: 60%;
+  }
+  75% {
+    left: 45%;
+  }
+  100% {
+    left: 50%;
+  }
+
+}
+/* end of modal box */
+
+/*Responsiviness*/
+@media(max-width: 1250px){
+  .banner-heading {
+    font-size: 8rem;
+  }
+  .day-offer-heading {
+    font-size: 5rem;
+  }
+  .day-offer-paragraph {
+    font-size: 3rem;
+  }
+  .day-offer-image-one{
+    width: 30rem;
+    object-fit: cover;
+  }
+  .day-offer-image-two {
+    width: 40rem;
+    object-fit: cover;
+  }
+}
+@media(max-width: 1120px){
+  .social-icons {
+    grid-column: 2 / 6;
+    grid-row: 1 / 2;
+
+  }
+}
+@media(max-width: 1000px){
+  .container {
+    grid-template-columns: minmax(4rem, 1fr) repeat(8, minmax(min-content, 16rem))  minmax(4rem, 1fr);
+  }
+  .social-icons {
+    grid-column: 2 / 5;
+    grid-row: 2 / 3;
+
+  }
+  .first-nav {
+    grid-column: 2 / 10;
+  }
+  .banner-heading {
+    font-size: 5rem;
+  }
+  .day-offer-heading {
+    font-size: 4.5rem;
+  }
+  .day-offer-paragraph {
+    font-size: 2.5rem;
+  }
+  .day-offer-image-one{
+    width: 30rem;
+    object-fit: cover;
+  }
+  .day-offer-image-two {
+    width: 40rem;
+    object-fit: cover;
+  }
+  .forms-wrapper form {
+    width: 40rem;
+  }
+}
+@media(max-width: 800px){
+  .container {
+    grid-template-columns: minmax(2rem, 1fr) repeat(8, minmax(min-content, 16rem))  minmax(2rem, 1fr);
+    grid-template-rows: repeat(3,min-content) 50vh repeat(5, min-content);
+  }
+  .social-icons {
+    grid-column: 2 / 7;
+    
+}
+.dropdown {
+  width: 52.5rem;
+  grid-template-columns: repeat(7, 7.5rem);
+}
+.dropdown-list-link {
+  margin-bottom: .7rem;
+}
+.dropdown-image {
+  width: 20rem;
+  margin-left: -4.5rem;
+  /* object-fit: cover; */
+}
+.banner-btn {
+  width: 14rem;
+  height: 4rem;
+}
+.slide-btn-1 {
+  left: 45.5%;
+}
+.slide-btn-2 {
+  left: 48.5%;
+}
+.slide-btn-3 {
+  left: 51.5%;
+}
+.slide-btn-4 {
+  left: 54.5%;
+}
+
+.day-offer-heading {
+  font-size: 4rem;
+}
+.day-offer-paragraph {
+  font-size: 2rem;
+}
+.day-offer-image-one{
+  width: 25rem;
+  object-fit: cover;
+}
+.day-offer-image-two {
+  width: 25rem;
+  object-fit: cover;
+}
+.day-offer-btn {
+  width: 13rem;
+  padding: .8rem;
+
+}
+.bestselling-furniture-cards {
+
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 3rem;
+ box-shadow: 0 1.5rem 6rem rgba(0, 0, 0, .3);
+}
+.bestselling-furniture-img {
+  width: 35rem;
+  height: 70%;
+  border: #fff solid .3rem;
+  border-radius: .3rem .3rem 0 0;
+ object-fit: cover;
+}
+}
+@media(max-width: 600px) {
+  .container {
+    grid-template-columns: minmax(1rem, 1fr) repeat(8, minmax(min-content, 16rem))  minmax(1rem, 1fr);
+  }
+  .first-nav-list {
+    grid-template-columns: repeat (auto-fit,minmax(10rem, 1fr));
+    grid-row-gap: 1rem;
+  }
+  .first-nav-link {
+    font-size: 1rem;
+  }
+  .social-icons {
+    grid-column: 2 / 7;
+    grid-template-columns: repeat(auto-fit,minmax(2rem, 1fr));
+  }
+  .dropdown {
+    width: 30rem;
+    grid-template-columns: repeat(5, 7.5rem);
+  }
+  .dropdown-image {
+    display: none;
+  }
+  .banner-heading {
+    font-size: 4rem;
+
+  }
+  .banner-btn {
+    transform: translateY(-2.5rem);
+    height: 3.5rem;
+  }
+  .slide-btn {
+    top: 90%;
+  }
+  .slide-btn-1 {
+    left: 44%;
+  }
+  .slide-btn-2 {
+    left: 48%;
+  }
+  .slide-btn-3 {
+    left: 52%;
+  }
+  .slide-btn-4 {
+    left: 56%;
+  }
+  .day-offer {
+    grid-column-gap: 1.4rem;
+  }
+  .day-offer-heading {
+    font-size: 3rem;
+  }
+  .day-offer-paragraph {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  .day-offer-image-one{
+    width: 15rem;
+    object-fit: cover;
+  }
+  .day-offer-image-two {
+    width: 15rem;
+    object-fit: cover;
+  }
+  .gallery {
+    grid-gap: .5rem;
+    padding: 1rem;
+  }
+  .contact {
+    grid-template-columns: 1fr;
+    grid-row-gap: 2rem;
+  }
+  .contact-heading {
+    font-size: 1.8rem;
+    justify-self: center;
+  }
+  .contact-form {
+     justify-self: center; 
+    
+  }
+  .forms-wrapper form {
+    width: 30rem;
+  }
+}
+/* end of responsivenes */
+
+
+
+
+
+
+
+
+
+
